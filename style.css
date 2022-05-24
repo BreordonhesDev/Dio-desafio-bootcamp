@@ -1,0 +1,505 @@
+/*Os cards não possuem links para próximas páginas, pois estou acompanhando o
+ desenvolvimento dos conteúdos do curso*/
+
+
+.root{
+  --title-font-size:3rem;
+  --subtitle-font-size:60px;
+  --title-font: font-family: 'Poppins', sans-serif;
+  --body-font: font-family: 'Poppins', sans-serif;
+}
+*{
+  margin: 0;
+  padding: 0;
+}
+
+/* header, parte principal */
+.header-wrapper{
+  height: 80vh;
+  width: 100%;
+  background: linear-gradient(-45deg,#500101, #8d123d,#913354,#e6485d,#913354,#8d123d,#500101);
+  background-size: 400% 400%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  position:relative;
+  animation: backgroundTransition 5s ease-in-out infinite;
+}
+h1{
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 36px;
+  color: #110000;
+}
+h2{
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 26px;
+}
+#sub{
+  color:#500101;
+}
+.social-media {
+  margin-top: 1rem;
+  display: flex;
+}
+.social-media a {
+  text-decoration: none;
+  color:rgb(240, 207, 248);
+  font-size: 24px;
+  padding: 1rem 4rem;
+  border: 1px solid rgb(240, 207, 248);
+  border-radius: 10px;
+  min-width: 4rem;
+  display:flex;
+  justify-content:space-evenly;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 50px;
+  transition:.5s cubic-bezier(0.55, 0.025, 0.675, 0.97)
+  
+}
+
+a:hover{
+  color: #eb8f8f;
+  background-color: #740404;
+}
+
+@keyframes backgroundTransition{
+  0%{
+    background-position: 0% 80%;
+  }
+  50%{
+    background-position: 80% 100%;
+  }
+  100%{
+    background-position: 0% 80%;
+  }
+}
+#imgdragon {
+  border-radius: 50%;
+}
+
+/*menu hamburguer*/
+.checkbox-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkbox{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top:0;
+  right:0;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999; /*para ele ficar na frente de tudo, positivo fica na frente,
+   negativo atrás*/
+  transition:400ms ease-in-out infinite;
+}
+.checkbox .trace{
+  width: 50px;
+  height: 2px; /*para ele ficar fininho*/
+  color: rgb(110, 1, 56);
+  background-color: aliceblue;
+  position: absolute;
+  border-radius: 4px;
+  transition: 0.5s ease-in-out;
+}
+
+.checkbox .trace:nth-child(1){
+  /*para animar cada um dos tracinhos*/
+  top:26px;
+  transform: 0S;
+}
+.checkbox .trace:nth-child(2){
+  /*para animar cada um dos tracinhos*/
+  top:46px;
+  transform: 0S;
+}
+.checkbox .trace:nth-child(3){
+  /*para animar cada um dos tracinhos*/
+  top:66px;
+  transform: 0S;
+}
+#toggle{
+  display: none; 
+  /*para tirar o check, precisa ser a palavra toggle*/
+}
+
+/* Menu  */
+.menu{
+  position: absolute;
+  top: 28px;
+  right: 30px;
+  background:transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 0px rgb(255, 254, 254); /*fase inicial da bolha do menu*/
+  z-index: 2; /*Para ficar atrás de tudo*/
+  transition: 400ms ease-in-out 0s;
+}
+.menu_itens{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2; /*Para vir para frente do menu quando ele aparecer*/
+  opacity: 0;
+  visibility: hidden;
+  transition:400ms ease-in-out 0s;
+}
+.menu_itens ul { /*tirar as bolinhas*/
+  list-style-type:none;
+}
+
+.menu_itens ul a{ /*Para ele ficar invisivel na aba principal*/
+ margin: 10px 0;
+ color: #36022b;
+ text-decoration: none;
+ text-transform: uppercase;
+ letter-spacing: 4px;
+ font-size: 40px;
+ padding:10px;
+ border-radius: 5px;
+ margin-top: 20px;
+}
+
+/*animação do menu*/
+#toggle:checked + .checkbox .trace:nth-child(1){
+ transform: rotate(45deg);
+ background-color:#500101;
+ top: 47px;
+}
+#toggle:checked + .checkbox .trace:nth-child(2){
+  transform: translateX(-100px);
+  background-color:#500101;
+  width: 30px;
+  visibility: hidden;
+  opacity: 0;
+ }
+
+#toggle:checked+.checkbox .trace:nth-child(3){
+  transform: rotate(-45deg); /*para o traço subir e cruzar com o de cima*/
+  background-color:#500101;
+  top: 48px;
+ }
+/*animação menu*/
+ #toggle:checked+.checkbox {
+   background-color: rgba(240, 248, 255, 0.123); /*para o fundo do x ficar branco*/
+ }
+ #toggle:checked~.menu{ /*para "conversar" e interligar o check com o menu*/
+    box-shadow:  0px 0px 0px 100vmax rgb(248, 217, 217);
+    /*o 100vmax é para pegar toda a área da tela
+    seja qual for. É aquela sombra que colocamos a opacidade zero lá inicialmente*/
+    
+    z-index: 1; /*tornei o index positivo para que ele apareça por cima das coisas*/
+ }
+ #toggle:checked~.menu_itens{
+   /*para tornar os elementos visiveis novamente*/
+   visibility: visible;
+   opacity: 1;
+ }
+
+ /*corpo do texto*/
+ .container1{
+   width: 100%;
+   height: auto;
+   display: flex;
+   align-items:center;
+   flex-direction:row;
+   justify-content: center;
+   background-color: rgb(240, 207, 248);
+   padding-bottom: 5rem;
+ }
+ .container2{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items:center;
+  flex-direction:row;
+  justify-content:center;
+  background-color: rgb(240, 207, 248);
+  padding-bottom: 5rem;
+}
+
+ .card_container{
+   display: flex;
+   align-items: center;
+   justify-content: space-evenly;
+   width: 90%;
+
+ }
+ .card_text{
+  width:0;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 2px;
+  color: aliceblue;
+  font-size: 30%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+/*--------------------------parte sobre mim  ---------------------------------*/
+ .card_sobremim{
+   height: 400px;
+   width: 335px;
+   margin-top: 5rem;
+   margin-right: 25px;
+   margin-left: 25px;
+   background-image: url(/Desafio_do_menu_de_hamburguer/fotominha.png);
+   background-position: top;
+   background-repeat: no-repeat;
+   background-size: cover;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color:white;
+   cursor: pointer;
+   transition: 0.35s;
+   border-radius: 15px;
+   filter: grayscale(0.5);
+   flex-direction: column;
+   
+ }
+ 
+
+ .card_projetos{
+  height: 400px;
+  width: 335px;
+  margin-top: 5rem;
+  margin-right: 25px;
+  background-image: url(/Desafio_do_menu_de_hamburguer/estudos\ \(2\).png);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  cursor: pointer;
+  transition: 0.35s;
+  border-radius: 15px;
+  filter: grayscale(0.5);
+ }
+
+ 
+
+ .card_certificados{
+  height: 400px;
+  width: 335px;
+  margin-top:5rem;
+  margin-right: 25px;
+  background-image: url(/Desafio_do_menu_de_hamburguer/Design\ sem\ nome\ \(7\).png);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  cursor: pointer;
+  transition: 0.35s;
+  border-radius: 15px;
+  filter: grayscale(0.5);
+ }
+
+ .card_desenhos{
+  height: 400px;
+  width: 335px;
+  margin-top:5rem;
+  margin-right: 25px;
+  background-image: url(/Desafio_do_menu_de_hamburguer/desenhos.png);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  cursor: pointer;
+  transition: 0.35s;
+  border-radius: 15px;
+  filter: grayscale(0.5);
+ }
+ /*--------------------------parte dos projetos---------------------------------*/
+ .divisão_de_card{
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 26px;
+  background-color: rgb(240, 207, 248);
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+  font-weight: bold;
+  color: #500101;
+  filter: grayscale(0.5);
+ }
+
+
+ .card_nsei{
+  height: 400px;
+  width: 335px;
+  margin-top: 20px;
+  margin-right: 25px;
+  margin-left: 25px;
+  background-image: url(/Desafio_do_menu_de_hamburguer/123.png);
+  filter: grayscale(0.5);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  cursor: pointer;
+  transition: 0.35s;
+  border-radius: 15px;
+  flex-direction: column;
+  filter: grayscale(0.5);
+  
+}
+
+
+.card_nsei2{
+ height: 400px;
+ width: 335px;
+ margin-top: 20px;
+ margin-right: 25px;
+ background-image: url(/Desafio_do_menu_de_hamburguer/123\ \(1\).png);
+ background-position: top;
+ background-repeat: no-repeat;
+ background-size: cover;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color:white;
+ cursor: pointer;
+ transition: 0.35s;
+ border-radius: 15px;
+ filter: grayscale(0.5);
+}
+
+
+
+.card_nsei3{
+ height: 400px;
+ width: 335px;
+ margin-top: 20px;
+ margin-right: 25px;
+ background-image: url(/Desafio_do_menu_de_hamburguer/123\ \(2\).png);
+ background-position: top;
+ background-repeat: no-repeat;
+ background-size: cover;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color:white;
+ cursor: pointer;
+ transition: 0.35s;
+ border-radius: 15px;
+ filter: grayscale(0.5);
+}
+
+.card_desenhosnsei4{
+ height: 400px;
+ width: 335px;
+ margin-top: 20px;
+ margin-right: 25px;
+ background-image: url(/Desafio_do_menu_de_hamburguer/123\ \(3\).png);
+ background-position: top;
+ background-repeat: no-repeat;
+ background-size: cover;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color:white;
+ cursor: pointer;
+ transition: 0.35s;
+ border-radius: 15px;
+ filter: grayscale(0.5);
+
+}
+.container_footer{
+  background-color: #090138;
+  width: 100%;
+  height: 5rem;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: px;
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+  font-weight: bold;
+  color: aliceblue;
+  padding-top: 10rem;
+  filter: grayscale(0.5);
+  
+
+}
+
+/*--------------------------parte da animação dos cards---------------------------------*/
+
+.card_text h2{
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  transition:.5s cubic-bezier(0.55, 0.025, 0.675, 0.97);
+  margin: 0;
+  margin-bottom: 20px;
+}
+.card_text p{
+  font-size: 0;
+  visibility: hidden;
+  opacity: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.3s;
+  margin-top: 90px;
+}
+
+.card:hover>.card_text p {
+  opacity: 1;
+  visibility: visible;
+  font-size: 10px;
+}
+
+/*--------------------------parte da animação dos filtros---------------------------------*/
+.card_sobremim:hover{
+  filter: unset;
+}
+.card_projetos:hover{
+  filter: unset;
+}
+.card_nsei3:hover{
+  filter: unset;
+}
+.card_nsei2:hover{
+  filter: unset;
+}
+.card_nsei:hover{
+  filter: unset;
+}
+.card_desenhosnsei4:hover{
+  filter: unset;
+}
+.card_desenhos:hover{
+  filter: unset;
+}
+.card_certificados:hover{
+  filter: unset;
+}
+/*-------------------------resdonsividade------------------------------------*/
+/*não aprendi*/
